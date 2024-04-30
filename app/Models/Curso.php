@@ -10,4 +10,11 @@ class Curso extends Model
 
     use HasFactory;
 
+    //poner cuales campos permitir y cuales no
+
+    // protected $fillable = ['name','descripcion','categoria'];
+
+    //poner que campos no permitir y cuales si
+    protected $guarded = ['status'];
+
 }
