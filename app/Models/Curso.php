@@ -17,4 +17,9 @@ class Curso extends Model
     //poner que campos no permitir y cuales si
     protected $guarded = ['status'];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }

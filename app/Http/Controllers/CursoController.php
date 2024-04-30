@@ -61,6 +61,7 @@ class CursoController extends Controller
 
         $request->validate([
             'name' => 'required|min:3',
+            'slug' => 'required|unique:cursos,slug,'.$curso->id,
             'descripcion' => 'required',
             'categoria' => 'required'
         ]);

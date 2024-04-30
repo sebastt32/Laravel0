@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CursoController;
 
-Route::get('/', HomeController::class);
+Route::get('/', HomeController::class)->name('home');
 
 //Forma de definir las rutas en primera instancia
 // Route::controller(CursoController::class)->group(function(){
@@ -25,6 +25,8 @@ Route::get('/', HomeController::class);
 //se puede hacer esto para cambiar el nombre principal de la ruta
 // Route::resource('asignaturas', CursoController::class)->parameters(['asignaturas'=>'curso'])->names('cursos');
 Route::resource('cursos', CursoController::class);
+
+Route::view('nosotros','nosotros')->name('nosotros');
 
 
 // Route::get('cursos/{curso}/{categoria?}', function ($curso,$categoria = null) {
