@@ -10,7 +10,7 @@ class CursoController extends Controller
     // Al metodo encargado de mostrar la pagina principal se le suele llamar index
     public function index(){
 
-        $cursos = Curso::paginate();
+        $cursos = Curso::orderBy('id','desc')->paginate();
 
          return view('cursos.index', compact('cursos')) ;
     }
@@ -20,16 +20,52 @@ class CursoController extends Controller
         return view('cursos.create');
     }
 
-    //show se usa para un curso o metodo el particular
-    public function show($id){
+    public function store(Request $request){
 
-        $curso = Curso::find($id);
+        $request->validate([
+            'name' => 'required|min:3',
+            'descripcion' => 'required',
+            'categoria' => 'required'
+        ]);
+
+        $curso = new Curso();
+
+        $curso->name = $request->name;
+        $curso->descripcion = $request->descripcion;
+        $curso->categoria = $request->categoria;
+
+        $curso->save();
+
+        return redirect()->route('cursos.show', $curso);
+        
+    }
+
+    //show se usa para un curso o metodo el particular
+    public function show(Curso $curso){
+
+        
         return view('cursos.show', compact('curso'));
     }
 
-    public function show2($curso,$categoria = null){
-        return view('cursos.show2',['curso' => $curso,'categoria'=>$categoria]);
+    public function edit(Curso $curso){
+        return view('cursos.edit',compact('curso'));
+
+
     }
+
+    public function update(Request $request, Curso $curso){
+        $curso->name = $request->name;
+        $curso->descripcion = $request->descripcion;
+        $curso->categoria = $request->categoria; 
+
+        $curso->save();
+
+        return redirect()->route('cursos.show', $curso);
+    }
+
+    // public function show2($curso,$categoria = null){
+    //     return view('cursos.show2',['curso' => $curso,'categoria'=>$categoria]);
+    // }
 
 
 }
